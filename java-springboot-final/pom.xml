@@ -11,8 +11,8 @@
     <groupId>org.example</groupId>
     <artifactId>spring-boot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot</name>
-    <description>Demo project for Spring Boot</description>
+    <name>robyn-ashauer-java-project</name>
+    <description>Robyn Ashauer's Java Project</description>
     <url/>
     <licenses>
         <license/>
