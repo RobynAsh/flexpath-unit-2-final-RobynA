@@ -47,6 +47,20 @@ public class OrderDao {
     }
 
     /**
+     * Get order by username
+     *
+     * @param username
+     * @return List<Order>
+     */
+    public List<Order> getOrdersByUsername(String username) {
+        return jdbcTemplate.query(
+                "SELECT * FROM orders WHERE username = ? ORDER BY id;",
+                this::mapToOrders,
+                username
+        );
+    }
+
+    /**
      * Creates a new order.
      *
      * @param order The order to create.

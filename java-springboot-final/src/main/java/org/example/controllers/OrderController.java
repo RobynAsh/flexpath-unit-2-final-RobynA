@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
@@ -31,7 +32,10 @@ public class OrderController {
      * @return A list of all orders.
      */
     @GetMapping
-    public List<Order> getAll() {
+    public List<Order> getAll(@RequestParam(required = false) String username) {
+        if (username != null) {
+            return orderDao.getOrdersByUsername(username);
+        }
         return orderDao.getOrders();
     }
 
@@ -58,12 +62,15 @@ public class OrderController {
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Order create(@RequestBody Order order) {
+    public Order create(@RequestBody Order order, Principal principal) {
+        String username = principal.getName();
+        order.setUsername(username);
+
         return orderDao.createOrder(order);
     }
 
     /**
-     * Updates a order.
+     * Updates an order.
      *
      * @param newOrder The Order's updates.
      * @return The updated order.
