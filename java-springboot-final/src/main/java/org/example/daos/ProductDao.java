@@ -95,6 +95,16 @@ public class ProductDao {
     }
 
     /**
+     * Deletes a product.
+     *
+     * @param id The id of the user.
+     */
+    public int deleteProduct(int id) {
+        String sql = "DELETE FROM products WHERE id = ? ";
+        return jdbcTemplate.update(sql, id);
+    }
+
+    /**
      * Maps a row in the ResultSet to a Product object.
      *
      * @param resultSet The result set to map.

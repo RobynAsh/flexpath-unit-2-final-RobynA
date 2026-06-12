@@ -78,4 +78,21 @@ public class ProductController {
 
         return productDao.updateProduct(productId, newProduct);
     }
+
+    /**
+     * Updates a product.
+     *
+     * @param id
+     * @return The updated product.
+     */
+    @DeleteMapping(path = "/{id}")
+    public int delete(@PathVariable String id) {
+        int productId = Integer.parseInt(id);
+        Product product = productDao.getProductById(productId);
+        if (product == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+        }
+
+        return productDao.deleteProduct(productId);
+    }
 }
