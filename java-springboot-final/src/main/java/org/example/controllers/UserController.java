@@ -70,7 +70,7 @@ public class UserController {
     public User updatePassword(@RequestBody String password, @PathVariable String username) {
         User user = userDao.getUserByUsername(username);
         if (user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
         user.setPassword(password);
         return userDao.updatePassword(user);
