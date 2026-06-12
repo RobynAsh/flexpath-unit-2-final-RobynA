@@ -97,7 +97,7 @@ public class ProductDao {
     /**
      * Deletes a product.
      *
-     * @param id The id of the user.
+     * @param id The id of the product.
      */
     public int deleteProduct(int id) {
         String sql = "DELETE FROM products WHERE id = ? ";
