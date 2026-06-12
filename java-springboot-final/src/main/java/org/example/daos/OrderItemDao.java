@@ -48,6 +48,20 @@ public class OrderItemDao {
     }
 
     /**
+     * Get orderItems by orderId
+     *
+     * @param orderId
+     * @return List of order items
+     */
+    public List<OrderItem> getOrderItemsByOrderId(Long orderId) {
+        return jdbcTemplate.query(
+                "SELECT * FROM order_items WHERE order_id = ? ORDER BY id;",
+                this::mapToOrderItems,
+                orderId
+        );
+    }
+
+    /**
      * Creates a new orderItem.
      *
      * @param orderItem The orderItem to create.

@@ -32,7 +32,10 @@ public class OrderItemController {
      * @return A list of all orderItems.
      */
     @GetMapping
-    public List<OrderItem> getAll() {
+    public List<OrderItem> getAll(@RequestParam(required = false) Long orderId) {
+        if (orderId != null) {
+            return orderItemDao.getOrderItemsByOrderId(orderId);
+        }
         return orderItemDao.getOrderItems();
     }
 
@@ -43,8 +46,8 @@ public class OrderItemController {
      * @return OrderItem
      */
     @GetMapping(path = "/{id}")
-    public OrderItem get(@PathVariable String id) {
-        OrderItem orderItem = orderItemDao.getOrderItemById(Integer.parseInt(id));
+    public OrderItem get(@PathVariable int id) {
+        OrderItem orderItem = orderItemDao.getOrderItemById(id);
         if (orderItem == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
         }
@@ -70,14 +73,13 @@ public class OrderItemController {
      * @return The updated orderItem.
      */
     @PutMapping(path = "/{id}")
-    public OrderItem update(@RequestBody OrderItem newOrderItem, @PathVariable String id) {
-        int orderItemId = Integer.parseInt(id);
-        OrderItem orderItem = orderItemDao.getOrderItemById(orderItemId);
+    public OrderItem update(@RequestBody OrderItem newOrderItem, @PathVariable int id) {
+        OrderItem orderItem = orderItemDao.getOrderItemById(id);
         if (orderItem == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
         }
 
-        return orderItemDao.updateOrderItem(orderItemId, newOrderItem);
+        return orderItemDao.updateOrderItem(id, newOrderItem);
     }
 
     /**
@@ -87,13 +89,12 @@ public class OrderItemController {
      * @return The updated orderItem.
      */
     @DeleteMapping(path = "/{id}")
-    public int delete(@PathVariable String id) {
-        int orderItemId = Integer.parseInt(id);
-        OrderItem orderItem = orderItemDao.getOrderItemById(orderItemId);
+    public int delete(@PathVariable int id) {
+        OrderItem orderItem = orderItemDao.getOrderItemById(id);
         if (orderItem == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
         }
 
-        return orderItemDao.deleteOrderItem(orderItemId);
+        return orderItemDao.deleteOrderItem(id);
     }
 }
