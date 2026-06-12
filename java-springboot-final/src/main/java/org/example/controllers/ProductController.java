@@ -3,10 +3,7 @@ package org.example.controllers;
 import org.example.daos.ProductDao;
 import org.example.models.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,4 +30,7 @@ public class ProductController {
     public List<Product> getAll() {
         return productDao.getProducts();
     }
+
+    @GetMapping(path = "/{id}")
+    public Product get(@PathVariable String id) { return productDao.getProductById(Integer.parseInt(id)); }
 }

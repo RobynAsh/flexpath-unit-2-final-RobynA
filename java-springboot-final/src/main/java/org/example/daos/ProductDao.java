@@ -28,6 +28,10 @@ public class ProductDao {
         return jdbcTemplate.query("SELECT * FROM products ORDER BY name;", this::mapToProduct);
     }
 
+    public Product getProductById(int id) {
+        return jdbcTemplate.queryForObject("SELECT * FROM products WHERE id = ?", this::mapToProduct, id);
+    }
+
     /**
      * Maps a row in the ResultSet to a Product object.
      *
