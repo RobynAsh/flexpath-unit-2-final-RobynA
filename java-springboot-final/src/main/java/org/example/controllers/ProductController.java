@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/products")
+@PreAuthorize("isAuthenticated()")
 public class ProductController {
     /**
      * The product data access object
